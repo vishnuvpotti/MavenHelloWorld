@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.vishtest</groupId>
-  <artifactId>MavenHelloworld</artifactId>
+  <artifactId>mavenhelloworld</artifactId>
   <version>0.1</version>
   <packaging>jar</packaging>
 
@@ -22,4 +22,42 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+      <finalName>${project.artifactId}</finalName>
+      <plugins>
+         <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+               <execution>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>single</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <archive>
+                  <manifest>
+                     <addClasspath>true</addClasspath>
+                     <mainClass>com.vishtest.MavenHelloworld.App</mainClass>
+                  </manifest>
+               </archive>
+               <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+               </descriptorRefs>
+               <appendAssemblyId>false</appendAssemblyId>
+            </configuration>
+         </plugin>
+         <!-- Set a JDK compiler level -->
+         <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+               <fork>true</fork>
+               <source>${jdk.version}</source>
+               <target>${jdk.version}</target>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
 </project>
